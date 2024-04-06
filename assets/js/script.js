@@ -69,37 +69,21 @@ const navigationLinks = document.querySelectorAll("[data-nav-link]");
 const pages = document.querySelectorAll("[data-page]");
 
 // Add event to all nav links
+// add event to all nav link
 for (let i = 0; i < navigationLinks.length; i++) {
-  navigationLinks.forEach((link) => {
-    link.addEventListener("click", function () {
-      const targetPageName = this.innerHTML.toLowerCase();
-      const targetPage = document.querySelector(
-        `[data-page="${targetPageName}"]`
-      );
+  navigationLinks[i].addEventListener("click", function () {
 
-      if (!targetPage.classList.contains("active")) {
-        const activePage = document.querySelector("[data-page].active");
-        if (activePage) {
-          activePage.classList.add("deactivate");
-          activePage.addEventListener(
-            "animationend",
-            () => {
-              activePage.classList.remove("active", "deactivate");
-              targetPage.classList.add("active");
-            },
-            { once: true }
-          );
-        } else {
-          targetPage.classList.add("active");
-        }
-
-        navigationLinks.forEach((navLink) =>
-          navLink.classList.remove("active")
-        );
-        this.classList.add("active");
+    for (let i = 0; i < pages.length; i++) {
+      if (this.innerHTML.toLowerCase() === pages[i].dataset.page) {
+        pages[i].classList.add("active");
+        navigationLinks[i].classList.add("active");
         window.scrollTo(0, 0);
+      } else {
+        pages[i].classList.remove("active");
+        navigationLinks[i].classList.remove("active");
       }
-    });
+    }
+
   });
 }
 

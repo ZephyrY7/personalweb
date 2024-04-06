@@ -135,6 +135,13 @@ span {
   display: block;
 }
 
+ion-icon:before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
 button {
   font: inherit;
   background: none;
@@ -223,33 +230,15 @@ article {
 
 article.active {
   display: block;
-  animation: scrollFadeIn 0.5s ease backwards;
+  animation: fade 0.5s ease backwards;
 }
 
-article.deactivate {
-  animation: scrollFadeOut 0.5s ease backwards;
-}
-
-@keyframes scrollFadeIn {
+@keyframes fade {
   0% {
     opacity: 0;
-    transform: translateX(100%);
   }
   100% {
     opacity: 1;
-    transform: translateX(0);
-  }
-}
-
-@keyframes scrollFadeOut {
-  0% {
-    opacity: 1;
-    transform: translateY(0);
-  }
-  100% {
-    opacity: 0;
-    transform: translateY(100%);
-    display: none;
   }
 }
 
