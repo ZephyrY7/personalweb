@@ -1,87 +1,44 @@
-'use strict';
+"use strict";
 
+// Element toggle function
+const elementToggleFunc = function (elem) {
+  elem.classList.toggle("active");
+};
 
-
-// element toggle function
-const elementToggleFunc = function (elem) { elem.classList.toggle("active"); }
-
-
-
-// sidebar variables
+// Sidebar variables
 const sidebar = document.querySelector("[data-sidebar]");
 const sidebarBtn = document.querySelector("[data-sidebar-btn]");
 
-// sidebar toggle functionality for mobile
-sidebarBtn.addEventListener("click", function () { elementToggleFunc(sidebar); });
+// Sidebar toggle functionality for mobile
+sidebarBtn.addEventListener("click", function () {
+  elementToggleFunc(sidebar);
+});
 
-
-
-// testimonials variables
-const testimonialsItem = document.querySelectorAll("[data-testimonials-item]");
-const modalContainer = document.querySelector("[data-modal-container]");
-const modalCloseBtn = document.querySelector("[data-modal-close-btn]");
-const overlay = document.querySelector("[data-overlay]");
-
-// modal variable
-const modalImg = document.querySelector("[data-modal-img]");
-const modalTitle = document.querySelector("[data-modal-title]");
-const modalText = document.querySelector("[data-modal-text]");
-
-// modal toggle function
-const testimonialsModalFunc = function () {
-  modalContainer.classList.toggle("active");
-  overlay.classList.toggle("active");
-}
-
-// add click event to all modal items
-for (let i = 0; i < testimonialsItem.length; i++) {
-
-  testimonialsItem[i].addEventListener("click", function () {
-
-    modalImg.src = this.querySelector("[data-testimonials-avatar]").src;
-    modalImg.alt = this.querySelector("[data-testimonials-avatar]").alt;
-    modalTitle.innerHTML = this.querySelector("[data-testimonials-title]").innerHTML;
-    modalText.innerHTML = this.querySelector("[data-testimonials-text]").innerHTML;
-
-    testimonialsModalFunc();
-
-  });
-
-}
-
-// add click event to modal close button
-modalCloseBtn.addEventListener("click", testimonialsModalFunc);
-overlay.addEventListener("click", testimonialsModalFunc);
-
-
-
-// custom select variables
+// Custom select variables
 const select = document.querySelector("[data-select]");
 const selectItems = document.querySelectorAll("[data-select-item]");
-const selectValue = document.querySelector("[data-selecct-value]");
+const selectValue = document.querySelector("[data-select-value]");
 const filterBtn = document.querySelectorAll("[data-filter-btn]");
 
-select.addEventListener("click", function () { elementToggleFunc(this); });
+select.addEventListener("click", function () {
+  elementToggleFunc(this);
+});
 
-// add event in all select items
+// Add event in all select items
 for (let i = 0; i < selectItems.length; i++) {
   selectItems[i].addEventListener("click", function () {
-
     let selectedValue = this.innerText.toLowerCase();
     selectValue.innerText = this.innerText;
     elementToggleFunc(select);
     filterFunc(selectedValue);
-
   });
 }
 
-// filter variables
+// Filter variables
 const filterItems = document.querySelectorAll("[data-filter-item]");
 
 const filterFunc = function (selectedValue) {
-
   for (let i = 0; i < filterItems.length; i++) {
-
     if (selectedValue === "all") {
       filterItems[i].classList.add("active");
     } else if (selectedValue === filterItems[i].dataset.category) {
@@ -89,18 +46,14 @@ const filterFunc = function (selectedValue) {
     } else {
       filterItems[i].classList.remove("active");
     }
-
   }
+};
 
-}
-
-// add event in all filter button items for large screen
+// Add event in all filter button items for large screen
 let lastClickedBtn = filterBtn[0];
 
 for (let i = 0; i < filterBtn.length; i++) {
-
   filterBtn[i].addEventListener("click", function () {
-
     let selectedValue = this.innerText.toLowerCase();
     selectValue.innerText = this.innerText;
     filterFunc(selectedValue);
@@ -108,52 +61,107 @@ for (let i = 0; i < filterBtn.length; i++) {
     lastClickedBtn.classList.remove("active");
     this.classList.add("active");
     lastClickedBtn = this;
-
-  });
-
-}
-
-
-
-// contact form variables
-const form = document.querySelector("[data-form]");
-const formInputs = document.querySelectorAll("[data-form-input]");
-const formBtn = document.querySelector("[data-form-btn]");
-
-// add event to all form input field
-for (let i = 0; i < formInputs.length; i++) {
-  formInputs[i].addEventListener("input", function () {
-
-    // check form validation
-    if (form.checkValidity()) {
-      formBtn.removeAttribute("disabled");
-    } else {
-      formBtn.setAttribute("disabled", "");
-    }
-
   });
 }
-
-
 
 // page navigation variables
 const navigationLinks = document.querySelectorAll("[data-nav-link]");
 const pages = document.querySelectorAll("[data-page]");
 
-// add event to all nav link
+// Add event to all nav links
 for (let i = 0; i < navigationLinks.length; i++) {
-  navigationLinks[i].addEventListener("click", function () {
+  navigationLinks.forEach((link) => {
+    link.addEventListener("click", function () {
+      const targetPageName = this.innerHTML.toLowerCase();
+      const targetPage = document.querySelector(
+        `[data-page="${targetPageName}"]`
+      );
 
-    for (let i = 0; i < pages.length; i++) {
-      if (this.innerHTML.toLowerCase() === pages[i].dataset.page) {
-        pages[i].classList.add("active");
-        navigationLinks[i].classList.add("active");
+      if (!targetPage.classList.contains("active")) {
+        const activePage = document.querySelector("[data-page].active");
+        if (activePage) {
+          activePage.classList.add("deactivate");
+          activePage.addEventListener(
+            "animationend",
+            () => {
+              activePage.classList.remove("active", "deactivate");
+              targetPage.classList.add("active");
+            },
+            { once: true }
+          );
+        } else {
+          targetPage.classList.add("active");
+        }
+
+        navigationLinks.forEach((navLink) =>
+          navLink.classList.remove("active")
+        );
+        this.classList.add("active");
         window.scrollTo(0, 0);
-      } else {
-        pages[i].classList.remove("active");
-        navigationLinks[i].classList.remove("active");
       }
-    }
-
+    });
   });
+}
+
+// POPUP
+let clickPosition = { x: 0, y: 0 };
+const popup = document.getElementById("popup");
+const popupContentContainer = document.getElementById(
+  "popup-content-container"
+);
+
+function showHtmlPopup(htmlFile, button) {
+  // Load content from the specified HTML file
+  fetch(htmlFile)
+    .then((response) => response.text())
+    .then((htmlContent) => {
+      popupContentContainer.innerHTML = htmlContent;
+
+      // Calculate the position and size of the button
+      const rect = button.getBoundingClientRect();
+      const buttonCenterX = rect.left + rect.width / 2;
+      const buttonCenterY = rect.top + rect.height / 2;
+      const scaleX = window.innerWidth / rect.width;
+      const scaleY = window.innerHeight / rect.height;
+
+      // Set initial position and size of the popup
+      popup.style.display = "flex";
+      popup.style.animation = "fadeInBackground 0.5s ease forwards";
+      popupContentContainer.style.transformOrigin = `${buttonCenterX}px ${buttonCenterY}px`;
+      popupContentContainer.style.transform = `scale(${1 / scaleX}, ${
+        1 / scaleY
+      })`;
+
+      // Apply animation
+      setTimeout(() => {
+        popupContentContainer.style.transition = "transform 0.5s";
+        popupContentContainer.style.transform = "scale(1, 1)";
+      }, 50); // Delay the animation slightly for smoother effect
+    });
+
+  document.body.style.overflow = "hidden";
+}
+
+// Close the popup when clicking on the overlay
+popup.addEventListener("click", (event) => {
+  if (event.target === popup) {
+    hideHtmlPopup();
+  }
+});
+
+function hideHtmlPopup() {
+  // Apply the fadeOut animation to both the popup and popup content
+  popup.style.animation = "fadeOutBackground 0.7s ease forwards";
+  popupContentContainer.style.animation = "scaleDown 0.7s ease forwards";
+
+  // Reset the popup after the animation completes
+  setTimeout(() => {
+    popup.style.display = "none";
+    popupContentContainer.style.transform = "scale(1)";
+    popupContentContainer.style.transition = "none";
+    popup.style.animation = ""; // Reset background animation
+    popupContentContainer.style.animation = ""; // Reset content animation
+  }, 500); // Wait for the animation to complete (500ms)
+
+  document.body.style.overflow = "auto";
 }
