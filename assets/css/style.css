@@ -10,6 +10,10 @@
   #CUSTOM PROPERTY
 \*-----------------------------------*/
 
+html{
+  scroll-behavior: smooth;
+}
+
 :root {
   /**
    * colors
@@ -1856,6 +1860,10 @@ main {
     margin-bottom: 0;
     padding-top: 60px;
     z-index: 1;
+  }
+
+  .sidebar.active{
+    max-height: initial;
   }
 
   .sidebar-info {
