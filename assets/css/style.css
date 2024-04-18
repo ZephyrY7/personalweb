@@ -10,7 +10,7 @@
   #CUSTOM PROPERTY
 \*-----------------------------------*/
 
-html{
+html {
   scroll-behavior: smooth;
 }
 
@@ -545,17 +545,17 @@ main {
 
 .resume-text {
   top: 0;
-  transition: top 0.5s; 
+  transition: top 0.5s;
 }
 
 .resume-icon {
   font-size: x-large;
   color: var(--sapphire);
-  top: -100%; 
+  top: -100%;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: top 0.5s; 
+  transition: top 0.5s;
 }
 
 .resume-icon svg {
@@ -568,11 +568,11 @@ main {
 }
 
 .resume-button:hover .resume-text {
-  top: 100%; 
+  top: 100%;
 }
 
 .resume-button:hover .resume-icon {
-  top: 0; 
+  top: 0;
 }
 
 .contact-info address {
@@ -928,6 +928,7 @@ main {
 }
 
 .filter-select {
+  text-transform: capitalize;
   background: var(--eerie-black-2);
   color: var(--light-gray);
   display: flex;
@@ -941,8 +942,12 @@ main {
   font-weight: var(--fw-300);
 }
 
+.filter-select .select-icon {
+  transition: transform 0.3s ease; /* Smooth transition for the transform property */
+}
+
 .filter-select.active .select-icon {
-  transform: rotate(0.5turn);
+  transform: rotate(180deg); /* Rotate to 180 degrees when active */
 }
 
 .select-list {
@@ -954,15 +959,15 @@ main {
   border: 1px solid var(--jet);
   border-radius: 14px;
   z-index: 2;
+  max-height: 0;
   opacity: 0;
-  visibility: hidden;
-  pointer-events: none;
-  transition: 0.15s ease-in-out;
+  overflow: hidden;
+  transition: max-height 0.3s ease, opacity 0.4s ease;
 }
 
 .filter-select.active + .select-list {
+  max-height: 200px; /* Adjust the max-height as needed */
   opacity: 1;
-  visibility: visible;
   pointer-events: all;
 }
 
@@ -975,10 +980,12 @@ main {
   width: 100%;
   padding: 8px 10px;
   border-radius: 8px;
+  transition: background-color 0.3s, color 0.3s; /* Add transition for smoother hover effect */
 }
 
 .select-item button:hover {
-  --eerie-black-2: var(--jet);
+  background-color: var(--jet);
+  color: var(--white-1);
 }
 
 .project-list {
@@ -1038,7 +1045,7 @@ main {
 }
 
 .project-item-icon-box {
-  --scale: 0.8;
+  --scale: 0;
 
   background: var(--jet);
   color: var(--sapphire);
@@ -1071,7 +1078,7 @@ main {
 }
 
 .project-item > a:hover img {
-  transform: scale(1.1);
+  transform: scale(1.2);
 }
 
 .project-title,
@@ -1243,10 +1250,9 @@ main {
   transition: transform 0.3s, color 0.3s;
 }
 
-/* Add hover styles for the close button */
 .close-btn:hover {
-  transform: rotate(90deg);
-  color: var(--blue);
+  transform: scale(1.2) rotate(90deg); /* Scale and rotate the button on hover */
+  color: var(--blue); /* Change the color on hover */
 }
 
 @keyframes scaleUp {
@@ -1874,7 +1880,7 @@ main {
     z-index: 1;
   }
 
-  .sidebar.active{
+  .sidebar.active {
     max-height: initial;
   }
 
