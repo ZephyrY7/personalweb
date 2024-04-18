@@ -3,10 +3,12 @@
 // Element toggle function
 const elementToggleFunc = function (elem) {
   elem.classList.toggle("active");
-  const buttonText = elem.querySelector("span");
-  const icon = elem.querySelector("ion-icon");
-  buttonText.textContent = elem.classList.contains("active") ? "Hide Contacts" : "Show Contacts";
-  icon.style.transform = elem.classList.contains("active") ? "rotate(180deg)" : "rotate(0deg)";
+  if (elem === sidebar) {
+    const buttonText = elem.querySelector("span");
+    const icon = elem.querySelector("ion-icon");
+    buttonText.textContent = elem.classList.contains("active") ? "Hide Contacts" : "Show Contacts";
+    icon.style.transform = elem.classList.contains("active") ? "rotate(180deg)" : "rotate(0deg)";
+  }
 };
 
 // Sidebar variables
@@ -29,14 +31,14 @@ select.addEventListener("click", function () {
 });
 
 // Add event in all select items
-select.addEventListener("click", function (event) {
-  if (event.target.matches("[data-select-item]")) {
-    let selectedValue = event.target.innerText.toLowerCase();
-    selectValue.innerText = event.target.innerText;
+for (let i = 0; i < selectItems.length; i++) {
+  selectItems[i].addEventListener("click", function () {
+    let selectedValue = this.innerText.toLowerCase();
+    selectValue.innerText = this.innerText;
     elementToggleFunc(select);
     filterFunc(selectedValue);
-  }
-});
+  });
+}
 
 // Filter variables
 const filterItems = document.querySelectorAll("[data-filter-item]");
@@ -73,6 +75,7 @@ const navigationLinks = document.querySelectorAll("[data-nav-link]");
 const pages = document.querySelectorAll("[data-page]");
 
 // Add event to all nav links
+// add event to all nav link
 for (let i = 0; i < navigationLinks.length; i++) {
   navigationLinks[i].addEventListener("click", function () {
 
