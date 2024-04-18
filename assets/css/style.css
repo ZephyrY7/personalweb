@@ -420,6 +420,16 @@ main {
   display: none;
 }
 
+/* Add transition properties for smoother animation */
+.info_more-btn span {
+  transition: opacity 0.3s ease-in-out;
+}
+
+/* Add transition properties for smoother animation */
+.info_more-btn ion-icon {
+  transition: transform 0.3s ease-in-out;
+}
+
 .sidebar-info_more {
   opacity: 0;
   visibility: hidden;
@@ -465,7 +475,7 @@ main {
 .contact-link {
   border: none;
   background: none;
-  display: inline-block;
+  display: inline-flex;
   position: relative; /* Ensure pseudo-elements are positioned relative to this */
 }
 
@@ -496,6 +506,10 @@ main {
 
 .contact-link:hover {
   color: var(--sapphire);
+}
+
+.contact-link ion-icon {
+  margin-right: 5px; /* Adjust icon spacing as needed */
 }
 
 .resume-button {
@@ -531,19 +545,17 @@ main {
 
 .resume-text {
   top: 0;
-}
-
-.resume-text,
-.resume-icon {
-  transition: top 0.5s;
+  transition: top 0.5s; 
 }
 
 .resume-icon {
+  font-size: x-large;
   color: var(--sapphire);
-  top: 100%;
+  top: -100%; 
   display: flex;
   align-items: center;
   justify-content: center;
+  transition: top 0.5s; 
 }
 
 .resume-icon svg {
@@ -556,11 +568,11 @@ main {
 }
 
 .resume-button:hover .resume-text {
-  top: -100%;
+  top: 100%; 
 }
 
 .resume-button:hover .resume-icon {
-  top: 0;
+  top: 0; 
 }
 
 .contact-info address {
@@ -588,7 +600,7 @@ main {
 }
 
 .social-item:hover .social-link {
-  transform: translateY(-5px);
+  transform: translateY(-7px);
   color: var(--blue);
 }
 
