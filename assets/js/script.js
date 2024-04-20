@@ -152,3 +152,24 @@ function hideHtmlPopup() {
   }, 500);
   document.body.style.overflow = "auto";
 }
+
+// Color mode
+function setTheme(theme) {
+  const themeToggle = document.querySelector(".theme-switch__checkbox");
+  themeToggle.checked = theme === "dark-mode"; // Update the checked state of the toggle switch
+  document.documentElement.className = theme;
+}
+
+const prefersDarkMode = window.matchMedia(
+  "(prefers-color-scheme: dark)"
+).matches;
+setTheme(prefersDarkMode ? "dark-mode" : "");
+
+const themeToggle = document.querySelector(".theme-switch__checkbox");
+themeToggle.addEventListener("change", () => {
+  if (themeToggle.checked) {
+    setTheme("dark-mode");
+  } else {
+    setTheme("");
+  }
+});
