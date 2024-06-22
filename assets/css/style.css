@@ -387,7 +387,7 @@ article.active {
   padding-top: 45px;
   border-radius: 14px;
   box-shadow: var(--shadow-2);
-  cursor: pointer;
+  cursor: auto;
   z-index: 1;
 }
 
@@ -439,6 +439,10 @@ main {
   transition: var(--transition-2);
   background: var(--bg-gradient-onyx);
   border-radius: 50px;
+}
+
+.avatar-box img {
+  border-radius: 50%;
 }
 
 .info-content .name {
@@ -1055,6 +1059,65 @@ main {
   font-size: var(--fs-6);
   font-weight: var(--fw-3);
   line-height: 1.6;
+}
+
+/**
+ * #references 
+ */
+
+.references {
+  margin-bottom: 15px;
+}
+
+.references-title {
+  margin: 10px;
+  margin-bottom: -7px;
+}
+
+.references-list {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 15px;
+  margin: 0 -15px;
+  padding: 25px 15px;
+  padding-bottom: 35px;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  overscroll-behavior-inline: contain;
+  scroll-snap-type: inline mandatory;
+}
+
+.references-item {
+  min-width: 100%;
+  scroll-snap-align: center;
+}
+
+.references-item-title {
+  margin-bottom: 7px;
+}
+
+.references-text {
+  color: var(--light-gray);
+  font-size: var(--fs-6);
+  font-weight: var(--fw-300);
+  line-height: 1.6;
+  display: -webkit-box;
+  line-clamp: 4;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.references-text a {
+  color: inherit;
+  font-style: italic;
+  font-weight: var(--fw-500);
+}
+
+.content-card {
+  padding: 30px;
+  padding-top: 25px;
 }
 
 /*-----------------------------------*\
@@ -1838,6 +1901,38 @@ main {
     text-align: left;
   }
 
+  /* references */
+
+  .references {
+    margin-bottom: -5px;
+  }
+
+  .references-title {
+    margin: 10px;
+    margin-bottom: -7px;
+  }
+
+  .references-list {
+    gap: 30px;
+    margin: 0 -30px;
+    padding: 30px;
+    padding-bottom: 35px;
+  }
+
+  .content-card {
+    padding: 30px;
+    padding-top: 25px;
+  }
+
+  .references-item-title {
+    margin-bottom: 15px;
+  }
+
+  .references-text {
+    line-clamp: 2;
+    -webkit-line-clamp: 2;
+  }
+
   /**
    * #RESUME
    */
@@ -1920,12 +2015,6 @@ main {
   /**
    * ABOUT
    */
-
-  /* testimonials modal */
-
-  .modal-avatar-box img {
-    width: 80px;
-  }
 
   /**
    * PORTFOLIO
@@ -2047,6 +2136,12 @@ main {
   .service-list {
     grid-template-columns: 1fr 1fr;
     gap: 20px 25px;
+  }
+
+  /* references */
+
+  .references-item {
+    min-width: calc(50% - 15px);
   }
 
   /**
