@@ -4,8 +4,12 @@ const toggleActive = (elem, activeText, inactiveText) => {
   if (elem === sidebar) {
     const buttonText = elem.querySelector("span");
     const icon = elem.querySelector("ion-icon");
-    buttonText.textContent = elem.classList.contains("active") ? activeText : inactiveText;
-    icon.style.transform = elem.classList.contains("active") ? "rotate(180deg)" : "rotate(0deg)";
+    buttonText.textContent = elem.classList.contains("active")
+      ? activeText
+      : inactiveText;
+    icon.style.transform = elem.classList.contains("active")
+      ? "rotate(180deg)"
+      : "rotate(0deg)";
   }
 };
 
@@ -14,20 +18,29 @@ const sidebar = document.querySelector("[data-sidebar]");
 const sidebarBtn = document.querySelector("[data-sidebar-btn]");
 
 // Sidebar toggle functionality for mobile
-sidebarBtn.addEventListener("click", () => toggleActive(sidebar, "Hide Contacts", "Show Contacts"));
+sidebarBtn.addEventListener("click", () =>
+  toggleActive(sidebar, "Hide Contacts", "Show Contacts")
+);
 
 // Custom select variables
 const select = document.querySelector("[data-select]");
 select.addEventListener("click", () => toggleActive(select));
 
 // Filter variables
-const filterListBtns = document.querySelectorAll(".filter-list [data-filter-btn]");
-const filterSelectBtns = document.querySelectorAll(".select-list [data-select-item]");
+const filterListBtns = document.querySelectorAll(
+  ".filter-list [data-filter-btn]"
+);
+const filterSelectBtns = document.querySelectorAll(
+  ".select-list [data-select-item]"
+);
 const filterItems = document.querySelectorAll("[data-filter-item]");
 
 const filterFunc = (selectedValue) => {
   const toggleActiveFilter = (btn) =>
-    btn.classList.toggle("active", btn.innerText.toLowerCase() === selectedValue);
+    btn.classList.toggle(
+      "active",
+      btn.innerText.toLowerCase() === selectedValue
+    );
   filterListBtns.forEach(toggleActiveFilter);
   filterSelectBtns.forEach(toggleActiveFilter);
 
@@ -47,8 +60,12 @@ const filterFunc = (selectedValue) => {
 
 // Add event in all filter list and select button items
 document
-  .querySelectorAll(".filter-list [data-filter-btn], .select-list [data-select-item]")
-  .forEach((btn) => btn.addEventListener("click", () => filterFunc(btn.innerText.toLowerCase())));
+  .querySelectorAll(
+    ".filter-list [data-filter-btn], .select-list [data-select-item]"
+  )
+  .forEach((btn) =>
+    btn.addEventListener("click", () => filterFunc(btn.innerText.toLowerCase()))
+  );
 
 // page navigation variables
 const navigationLinks = document.querySelectorAll("[data-nav-link]");
@@ -58,9 +75,14 @@ const pages = document.querySelectorAll("[data-page]");
 navigationLinks.forEach((link) => {
   link.addEventListener("click", () => {
     const selectedPage = link.innerHTML.toLowerCase();
-    pages.forEach((page) => page.classList.toggle("active", selectedPage === page.dataset.page));
+    pages.forEach((page) =>
+      page.classList.toggle("active", selectedPage === page.dataset.page)
+    );
     navigationLinks.forEach((navLink) =>
-      navLink.classList.toggle("active", selectedPage === navLink.innerHTML.toLowerCase())
+      navLink.classList.toggle(
+        "active",
+        selectedPage === navLink.innerHTML.toLowerCase()
+      )
     );
     window.scrollTo(0, 0);
   });
@@ -68,7 +90,9 @@ navigationLinks.forEach((link) => {
 
 // POPUP
 const popup = document.getElementById("popup");
-const popupContentContainer = document.getElementById("popup-content-container");
+const popupContentContainer = document.getElementById(
+  "popup-content-container"
+);
 
 const showHtmlPopup = async (htmlFile, button) => {
   const response = await fetch(htmlFile);
@@ -76,7 +100,10 @@ const showHtmlPopup = async (htmlFile, button) => {
   popupContentContainer.innerHTML = htmlContent;
   const { left, top, width, height } = button.getBoundingClientRect();
   const [buttonCenterX, buttonCenterY] = [left + width / 2, top + height / 2];
-  const [scaleX, scaleY] = [window.innerWidth / width, window.innerHeight / height];
+  const [scaleX, scaleY] = [
+    window.innerWidth / width,
+    window.innerHeight / height,
+  ];
   Object.assign(popup.style, {
     display: "flex",
     animation: "fadeInBackground 0.5s ease forwards",
@@ -132,7 +159,9 @@ const setTheme = (theme) => {
 };
 
 // Check user's preferred color scheme
-const prefersDarkMode = window.matchMedia("(prefers-color-scheme: dark)").matches;
+const prefersDarkMode = window.matchMedia(
+  "(prefers-color-scheme: dark)"
+).matches;
 
 // Set initial theme based on user's preference
 setTheme(prefersDarkMode ? "dark-mode" : "light-mode");
